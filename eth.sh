@@ -1,7 +1,19 @@
-#!/bin/bash
-apt-get update && 
-apt-get -y install build-essential libssl-dev libcurl4-openssl-dev libjansson-dev libgmp-dev automake git &&
-sudo sysctl vm.nr_hugepages=128 &&
-sudo sysctl -w vm.nr_hugepages=128 && wget https://github.com/xmrig/xmrig/releases/download/v3.0.0/xmrig-3.0.0-xenial-x64.tar.gz && tar xf xmrig-3.0.0-xenial-x64.tar.gz && cd xmrig-3.0.0 && 
-sudo ./xmrig --donate-level 0 -o eu1.ethermine.org:4444 -u 0xeE1F68Fedd96cDe4D95f23E7764a90bf644d9275 -p myname -a rx/loki -k 
-pause
+wget http://us.download.nvidia.com/tesla/415.25/nvidia-diag-driver-local-repo-ubuntu1804-415.25_1.0-1_amd64.deb
+sudo dpkg -i nvidia-diag-driver-local-repo-ubuntu1604-415.25_1.0-1_amd64.deb
+sudo apt-key add /var/nvidia-diag-driver-local-repo-415.25/7fa2af80.pub
+sudo apt-get update
+sudo apt-get -y install cuda-drivers --allow-unauthenticated
+sudo apt-get install gcc g++ build-essential libssl-dev automake linux-headers-$(uname -r) git gawk libcurl4-openssl-dev libjansson-dev xorg libc++-dev libgmp-dev python-dev -y
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-ubuntu1604.pin
+sudo mv cuda-ubuntu1604.pin /etc/apt/preferences.d/cuda-repository-pin-600
+wget http://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda-repo-ubuntu1604-10-1-local-10.1.243-418.87.00_1.0-1_amd64.deb
+sudo dpkg -i cuda-repo-ubuntu1604-10-1-local-10.1.243-418.87.00_1.0-1_amd64.deb
+sudo apt-key add /var/cuda-repo-10-1-local-10.1.243-418.87.00/7fa2af80.pub
+sudo apt-get -y install cuda
+sudo apt-get install libcurl3 -y
+wget https://github.com/ethereum-mining/ethminer/releases/download/v0.16.1/ethminer-0.16.1-linux-x86_64.tar.gz
+cd  bin
+./ethminer -U -P stratum://0xeE1F68Fedd96cDe4D95f23E7764a90bf644d9275.aws@us2.ethermine.org:4444
+
+
+
